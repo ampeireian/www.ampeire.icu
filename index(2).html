@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ampeire Tech | Software Solutions & Web Design - Uganda</title>
+<meta name="description" content="Ampeire Tech: Professional software development, web design, and IT solutions for businesses across Uganda and East Africa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============ LIGHT THEME VARIABLES ============ */
+  :root {
+    --primary-dark: #0f1419;
+    --bg-light: #f8f9fb;
+    --bg-white: #ffffff;
+    --accent-1: #0084d4;
+    --accent-2: #6c5ce7;
+    --accent-3: #e74c3c;
+    --accent-gold: #f39c12;
+    --text-dark: #1a1a1a;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+    --border-light: #e0e0e0;
+    --glass-bg: rgba(255,255,255,0.7);
+    --glass-border: rgba(0,0,0,0.08);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
+    --shadow-lg: 0 16px 48px rgba(0,0,0,0.12);
+    --glow-blue: 0 0 30px rgba(0,132,212,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-light);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* LOADING OPTIMIZATION */
+  img { max-width: 100%; height: auto; }
+  
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--accent-1);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 35px; height: 35px;
+    border: 1.5px solid rgba(0,132,212,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.4s, height 0.4s;
+  }
+
+  /* PAGE TRANSITION */
+  .page-transition {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+    z-index: 9999;
+    transform: translateY(-100%);
+    transition: transform 0.6s cubic-bezier(0.77,0,0.175,1);
+  }
+  .page-transition.active { transform: translateY(0); }
+  .page-transition.exit { transform: translateY(100%); }
+
+  /* ============ NAVBAR ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 1.2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(15px);
+    background: rgba(248,249,251,0.8);
+    border-bottom: 1px solid var(--border-light);
+    transition: all 0.3s;
+  }
+  nav.scrolled {
+    padding: 0.8rem 3rem;
+    box-shadow: var(--shadow-md);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent-3); -webkit-text-fill-color: var(--accent-3); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    transition: right 0.3s;
+  }
+  .nav-links a:hover { color: var(--text-dark); }
+  .nav-links a:hover::after { right: 0; }
+  .nav-links a.active-link { color: var(--accent-1); }
+  .nav-links a.active-link::after { right: 0; }
+
+  .nav-cta {
+    padding: 0.6rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: white !important;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    box-shadow: var(--glow-blue);
+    transition: all 0.3s !important;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,132,212,0.3); }
+  .nav-cta::after { display: none !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+  .hamburger span {
+    display: block;
+    width: 28px; height: 2px;
+    background: var(--accent-1);
+    transition: 0.3s;
+  }
+
+  /* ============ SECTIONS ============ */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 60px;
+    background: linear-gradient(135deg, var(--bg-light) 0%, #f0f5ff 100%);
+  }
+
+  .parallax-bg {
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 30%, rgba(108,92,231,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 70%, rgba(0,132,212,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(231,76,60,0.06) 0%, transparent 60%),
+      transparent;
+    will-change: transform;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,132,212,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,132,212,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.2;
+    animation: orb-float 8s ease-in-out infinite;
+  }
+  .orb-1 { width: 500px; height: 500px; background: radial-gradient(var(--accent-2), transparent); top: -100px; left: -100px; }
+  .orb-2 { width: 400px; height: 400px; background: radial-gradient(var(--accent-1), transparent); bottom: -80px; right: -80px; animation-delay: -3s; }
+  @keyframes orb-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.05); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 2rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    background: rgba(0,132,212,0.1);
+    border: 1px solid rgba(0,132,212,0.2);
+    border-radius: 50px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent-1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    animation: fade-up 0.8s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--accent-1);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-1);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fade-up 0.8s 0.2s ease both;
+  }
+  .hero-title .line-1 { color: var(--text-dark); }
+  .hero-title .line-2 {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+    font-weight: 300;
+    animation: fade-up 0.8s 0.4s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fade-up 0.8s 0.6s ease both;
+  }
+
+  .btn-primary {
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--glow-blue);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(0,132,212,0.4); }
+
+  .btn-ghost {
+    padding: 1rem 2.5rem;
+    background: rgba(255,255,255,0.8);
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+    border-radius: 50px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--accent-1); color: var(--accent-1); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border-light);
+    animation: fade-up 0.8s 0.8s ease both;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-stat .label { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: fade-up 1s 1.2s ease both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(var(--accent-1), transparent);
+    animation: scroll-anim 2s ease-in-out infinite;
+  }
+  @keyframes scroll-anim {
+    0% { transform: scaleY(0); opacity: 1; }
+    50% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(0); opacity: 0; }
+  }
+
+  /* ============ GLASS CARD ============ */
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .glass-card:hover {
+    border-color: rgba(0,132,212,0.3);
+    box-shadow: var(--shadow-lg), var(--glow-blue);
+    transform: translateY(-4px);
+  }
+
+  /* ============ PAGE SECTION ============ */
+  .page-section {
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    margin-bottom: 1rem;
+    display: block;
+    font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+  }
+  .section-title .highlight {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ============ ABOUT PAGE ============ */
+  #about-section {
+    min-height: auto;
+    padding: 6rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+
+  .about-hero-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+  }
+  .about-hero-text p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .about-hero-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .about-hero-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  .about-skills {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 3rem 0;
+  }
+  .skill-item {
+    padding: 1.5rem;
+    background: rgba(0,132,212,0.08);
+    border: 1px solid rgba(0,132,212,0.15);
+    border-radius: 12px;
+    text-align: center;
+  }
+  .skill-item .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .skill-item h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-dark);
+  }
+  .skill-item p { font-size: 0.85rem; color: var(--text-secondary); }
+
+  .about-values {
+    background: linear-gradient(135deg, rgba(0,132,212,0.08), rgba(108,92,231,0.08));
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 3rem;
+  }
+  .about-values h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .value-card {
+    text-align: center;
+  }
+  .value-card .icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .value-card h5 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+  }
+  .value-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ============ PORTFOLIO / CASE STUDIES ============ */
+  #portfolio-section {
+    min-height: auto;
+    padding: 6rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .case-study-card {
+    padding: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .case-study-card:hover {
+    border-color: var(--accent-1);
+    box-shadow: var(--shadow-lg), var(--glow-blue);
+    transform: translateY(-8px);
+  }
+
+  .case-study-image {
+    width: 100%;
+    height: 240px;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .case-study-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .case-study-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .case-study-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    width: fit-content;
+  }
+  .case-study-card.web .case-study-tag { background: rgba(0,132,212,0.1); color: var(--accent-1); }
+  .case-study-card.app .case-study-tag { background: rgba(108,92,231,0.1); color: var(--accent-2); }
+  .case-study-card.design .case-study-tag { background: rgba(231,76,60,0.1); color: var(--accent-3); }
+
+  .case-study-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+  }
+
+  .case-study-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  .case-study-results {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .result-item {
+    background: rgba(0,132,212,0.08);
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .case-study-cta {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .case-study-cta a {
+    padding: 0.6rem 1rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: 1px solid var(--border-light);
+    text-align: center;
+  }
+  .case-study-cta .btn-view {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: white;
+    border: none;
+    box-shadow: var(--glow-blue);
+  }
+  .case-study-cta .btn-view:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,132,212,0.3); }
+  .case-study-cta .btn-info {
+    background: rgba(0,132,212,0.08);
+    color: var(--accent-1);
+  }
+  .case-study-cta .btn-info:hover { border-color: var(--accent-1); background: rgba(0,132,212,0.15); }
+
+  /* ============ SERVICES ============ */
+  .services-section {
+    padding: 6rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    padding: 2rem;
+    border-radius: 16px;
+  }
+
+  .service-icon {
+    width: 60px; height: 60px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  .service-card.web-dev .service-icon { background: rgba(0,132,212,0.15); border: 1px solid rgba(0,132,212,0.2); }
+  .service-card.app-dev .service-icon { background: rgba(108,92,231,0.15); border: 1px solid rgba(108,92,231,0.2); }
+  .service-card.design .service-icon { background: rgba(231,76,60,0.15); border: 1px solid rgba(231,76,60,0.2); }
+
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--text-dark);
+  }
+
+  .service-desc {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .service-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .service-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .service-features li::before {
+    content: '→';
+    color: var(--accent-1);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  /* ============ TEAM ============ */
+  .team-section {
+    padding: 6rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .team-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid var(--border-light);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .team-card:hover {
+    border-color: var(--accent-1);
+    box-shadow: var(--shadow-lg), var(--glow-blue);
+    transform: translateY(-4px);
+  }
+
+  .team-avatar {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    object-fit: cover;
+    border: 3px solid var(--border-light);
+  }
+
+  .team-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--text-dark);
+  }
+
+  .team-role {
+    font-size: 0.85rem;
+    color: var(--accent-1);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .team-bio {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .team-socials {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+  }
+  .team-socials a {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(0,132,212,0.1);
+    border: 1px solid rgba(0,132,212,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .team-socials a:hover { background: var(--accent-1); color: white; transform: translateY(-2px); }
+
+  /* ============ PRODUCTS PAGE ============ */
+  #products-section {
+    min-height: auto;
+    padding: 6rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .product-card {
+    padding: 2.5rem;
+    border-radius: 16px;
+  }
+
+  .product-icon {
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .product-card.cyan .product-icon { background: rgba(0,132,212,0.15); border: 1px solid rgba(0,132,212,0.2); }
+  .product-card.purple .product-icon { background: rgba(108,92,231,0.15); border: 1px solid rgba(108,92,231,0.2); }
+
+  .product-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .product-card.cyan .product-tag { background: rgba(0,132,212,0.1); color: var(--accent-1); }
+  .product-card.purple .product-tag { background: rgba(108,92,231,0.1); color: var(--accent-2); }
+
+  .product-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--text-dark);
+  }
+
+  .product-desc {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .product-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .product-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .product-features li::before {
+    content: '✓';
+    color: var(--accent-1);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .product-actions { display: flex; gap: 0.8rem; }
+  .btn-product {
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.3s;
+    border: 1px solid var(--border-light);
+  }
+  .btn-product.primary { background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); color: white; border: none; box-shadow: var(--glow-blue); }
+  .btn-product.primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,132,212,0.3); }
+  .btn-product.ghost { background: rgba(0,132,212,0.08); color: var(--accent-1); }
+  .btn-product.ghost:hover { border-color: var(--accent-1); background: rgba(0,132,212,0.15); }
+
+  /* ============ CONTACT PAGE ============ */
+  #contact-section {
+    min-height: auto;
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .contact-item {
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border: 1px solid var(--border-light);
+  }
+
+  .contact-item-icon {
+    width: 46px; height: 46px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .icon-email { background: rgba(0,132,212,0.15); }
+  .icon-wa { background: rgba(34,177,76,0.15); }
+  .icon-phone { background: rgba(243,156,18,0.15); }
+
+  .contact-item-body .label { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; font-weight: 600; }
+  .contact-item-body .value { font-size: 0.95rem; color: var(--text-dark); }
+  .contact-item-body a { color: var(--accent-1); text-decoration: none; font-weight: 600; }
+  .contact-item-body a:hover { text-decoration: underline; }
+
+  .contact-form {
+    padding: 2.5rem;
+    border-radius: 16px;
+    background: white;
+    border: 1px solid var(--border-light);
+  }
+
+  .form-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark); }
+  .form-sub { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 2rem; }
+
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 600; }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    color: var(--text-dark);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--accent-1);
+    box-shadow: 0 0 0 3px rgba(0,132,212,0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+  }
+  .form-success .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .form-success h4 { font-family: 'Syne', sans-serif; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text-dark); }
+  .form-success p { color: var(--text-secondary); font-size: 0.9rem; }
+
+  /* ============ LICENSE PAGE ============ */
+  #license-section {
+    min-height: auto;
+    padding: 6rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .license-card {
+    padding: 3rem;
+    border-radius: 16px;
+    background: white;
+    border: 1px solid var(--border-light);
+  }
+
+  .license-badge-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .license-badge {
+    padding: 1.2rem;
+    border-radius: 12px;
+    text-align: center;
+    background: rgba(0,132,212,0.08);
+    border: 1px solid rgba(0,132,212,0.2);
+  }
+  .license-badge .icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .license-badge p { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    position: relative;
+    z-index: 2;
+    padding: 4rem 3rem 2rem;
+    border-top: 1px solid var(--border-light);
+    background: linear-gradient(135deg, var(--bg-light), var(--bg-white));
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+  }
+
+  .footer-brand { }
+  .footer-brand p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; margin-top: 1rem; }
+
+  .footer-col h5 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em; margin-bottom: 1rem; color: var(--text-dark); }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col ul a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+  .footer-col ul a:hover { color: var(--accent-1); font-weight: 500; }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* ============ SCROLL REVEAL ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      inset: 0;
+      background: rgba(248,249,251,0.98);
+      backdrop-filter: blur(20px);
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      z-index: 999;
+    }
+    .nav-links.open a { font-size: 1.3rem; }
+
+    .about-hero { grid-template-columns: 1fr; }
+    .about-skills { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .license-badge-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    #about-section, #portfolio-section, #contact-section, #license-section { padding: 4rem 1.5rem; }
+    .about-hero-image img { height: 300px; }
+    .case-study-image { height: 180px; }
+    .footer-bottom { flex-direction: column; gap: 1rem; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-title { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+    .section-title { font-size: clamp(1.5rem, 3vw, 2rem); }
+    .about-hero-text h3 { font-size: 1.8rem; }
+    .hero-actions { flex-direction: column; }
+    .hero-stats { flex-direction: column; gap: 1rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    background: linear-gradient(90deg, rgba(0,132,212,0.03), rgba(108,92,231,0.03));
+  }
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .marquee-track span {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .marquee-track span.accent { color: var(--accent-1); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Page Transition -->
+<div class="page-transition" id="pageTransition"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo" onclick="showSection('home')">Ampeire<span>Tech</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#" onclick="showSection('home')" id="nav-home" class="active-link">Home</a></li>
+    <li><a href="#" onclick="showSection('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="showSection('portfolio')" id="nav-portfolio">Portfolio</a></li>
+    <li><a href="#" onclick="showSection('products')" id="nav-products">Products</a></li>
+    <li><a href="#" onclick="showSection('contact')" id="nav-contact">Contact</a></li>
+    <li><a href="#" onclick="showSection('license')" id="nav-license" class="nav-cta">Get License</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ==================== HOME ==================== -->
+<div id="home-section" class="section active">
+  <section class="hero">
+    <div class="parallax-bg" id="parallaxBg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">🚀 Web Design & Software Innovation</div>
+      <h1 class="hero-title">
+        <span class="line-1">Digital Solutions</span>
+        <span class="line-2">Built to Scale</span>
+      </h1>
+      <p class="hero-sub">Ampeire Tech creates stunning websites, powerful software systems, and digital experiences for businesses across Uganda and East Africa.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" onclick="showSection('portfolio'); return false;">See Our Work →</a>
+        <a href="#" class="btn-ghost" onclick="showSection('contact'); return false;">Start a Project</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="num">50+</div>
+          <div class="label">Projects Delivered</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">25+</div>
+          <div class="label">Happy Clients</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">7+</div>
+          <div class="label">Years Experience</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll to explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap page-section">
+    <div class="marquee-track">
+      <span class="accent">✦</span><span>Web Development</span>
+      <span class="accent">✦</span><span>Mobile Apps</span>
+      <span class="accent">✦</span><span>UI/UX Design</span>
+      <span class="accent">✦</span><span>School Clinic System</span>
+      <span class="accent">✦</span><span>Retail Accounting</span>
+      <span class="accent">✦</span><span>Business Software</span>
+      <span class="accent">✦</span><span>Web Development</span>
+      <span class="accent">✦</span><span>Mobile Apps</span>
+      <span class="accent">✦</span><span>UI/UX Design</span>
+      <span class="accent">✦</span><span>School Clinic System</span>
+      <span class="accent">✦</span><span>Retail Accounting</span>
+      <span class="accent">✦</span><span>Business Software</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services-section page-section">
+    <div class="section-header reveal">
+      <span class="section-tag">What We Do</span>
+      <h2 class="section-title">Our <span class="highlight">Services</span></h2>
+      <p class="section-desc">From web design to enterprise software, we deliver comprehensive digital solutions.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="glass-card service-card web-dev reveal">
+        <div class="service-icon">🌐</div>
+        <h3 class="service-name">Web Development</h3>
+        <p class="service-desc">Modern, responsive websites and web applications built with the latest technologies.</p>
+        <ul class="service-features">
+          <li>Responsive Design</li>
+          <li>Fast Loading Speed</li>
+          <li>SEO Optimization</li>
+          <li>Mobile First</li>
+        </ul>
+      </div>
+
+      <div class="glass-card service-card app-dev reveal reveal-delay-1">
+        <div class="service-icon">📱</div>
+        <h3 class="service-name">App Development</h3>
+        <p class="service-desc">Native and cross-platform mobile applications for iOS and Android.</p>
+        <ul class="service-features">
+          <li>Native & Flutter</li>
+          <li>Cross-Platform</li>
+          <li>App Store Ready</li>
+          <li>Push Notifications</li>
+        </ul>
+      </div>
+
+      <div class="glass-card service-card design reveal reveal-delay-2">
+        <div class="service-icon">🎨</div>
+        <h3 class="service-name">UI/UX Design</h3>
+        <p class="service-desc">Beautiful, intuitive interfaces that users love to interact with.</p>
+        <ul class="service-features">
+          <li>User Research</li>
+          <li>Wireframing</li>
+          <li>Prototyping</li>
+          <li>Design Systems</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="page-section" style="padding: 5rem 3rem; background: linear-gradient(135deg, rgba(0,132,212,0.08), rgba(108,92,231,0.08)); margin: 3rem 0;">
+    <div style="max-width: 700px; margin: 0 auto; text-align: center;" class="reveal">
+      <h3 style="font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-dark);">Ready for Your Next Project?</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem; font-weight: 300; line-height: 1.8;">Let's talk about your ideas and turn them into reality.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="#" class="btn-primary" onclick="showSection('contact'); return false;">Get Started →</a>
+        <a href="#" class="btn-ghost" onclick="showSection('portfolio'); return false;">View Portfolio</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== ABOUT ==================== -->
+<div id="about-section" class="section">
+  <section style="min-height: auto; padding: 6rem 3rem; max-width: 1400px; margin: 0 auto;">
+    <div class="section-header reveal" style="margin-top: 3rem;">
+      <span class="section-tag">About Us</span>
+      <h2 class="section-title">Meet <span class="highlight">Ampeire Tech</span></h2>
+      <p class="section-desc">A team of passionate developers and designers creating digital solutions for African businesses.</p>
+    </div>
+
+    <div class="about-hero reveal reveal-delay-1">
+      <div class="about-hero-text">
+        <h3>We Build Digital Futures</h3>
+        <p>Founded in 2018, Ampeire Tech started with a simple mission: create world-class software and web solutions for businesses in Uganda and across East Africa. We believe in the power of technology to transform businesses and improve lives.</p>
+        <p>Our team combines technical expertise with creative problem-solving to deliver solutions that aren't just functional—they're beautiful, scalable, and built to last.</p>
+        <div style="margin-top: 2rem;">
+          <a href="#" class="btn-primary" onclick="showSection('contact'); return false;">Work With Us →</a>
+        </div>
+      </div>
+      <div class="about-hero-image">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%230084d4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%236c5ce7;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad)'/%3E%3Ctext x='50%25' y='50%25' font-size='80' font-weight='bold' fill='white' text-anchor='middle' dy='.3em'%3E👥%3C/text%3E%3C/svg%3E" alt="Team">
+      </div>
+    </div>
+
+    <div style="margin: 4rem 0;" class="reveal">
+      <h3 style="font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; text-align: center; color: var(--text-dark);">Core Skills & Expertise</h3>
+      <div class="about-skills">
+        <div class="skill-item reveal reveal-delay-1">
+          <div class="icon">💻</div>
+          <h4>Web Development</h4>
+          <p>React, Node.js, Next.js, TypeScript, AWS</p>
+        </div>
+        <div class="skill-item reveal reveal-delay-2">
+          <div class="icon">📱</div>
+          <h4>Mobile Development</h4>
+          <p>Flutter, React Native, iOS, Android</p>
+        </div>
+        <div class="skill-item reveal reveal-delay-3">
+          <div class="icon">🎨</div>
+          <h4>UI/UX Design</h4>
+          <p>Figma, Prototyping, User Research</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-values reveal" style="margin-top: 3rem;">
+      <h4>Our Core Values</h4>
+      <div class="values-grid">
+        <div class="value-card reveal reveal-delay-1">
+          <span class="icon">⚡</span>
+          <h5>Innovation</h5>
+          <p>We stay on the cutting edge of technology and always look for better ways to solve problems.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <span class="icon">🤝</span>
+          <h5>Collaboration</h5>
+          <p>Success comes from working closely with our clients. Your success is our success.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-3">
+          <span class="icon">🎯</span>
+          <h5>Excellence</h5>
+          <p>We're committed to delivering the highest quality work on every project we undertake.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== PORTFOLIO ==================== -->
+<div id="portfolio-section" class="section">
+  <section style="min-height: auto; padding: 6rem 3rem; max-width: 1400px; margin: 0 auto;">
+    <div class="section-header reveal" style="margin-top: 3rem;">
+      <span class="section-tag">Case Studies</span>
+      <h2 class="section-title">Our <span class="highlight">Best Work</span></h2>
+      <p class="section-desc">Curated portfolio of our most impactful projects. Quality over quantity.</p>
+    </div>
+
+    <div class="portfolio-grid">
+      <!-- CASE STUDY 1 -->
+      <div class="glass-card case-study-card web reveal">
+        <div class="case-study-image">
+          <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="240" fill="url(%23grad-web)"/>
+            <defs><linearGradient id="grad-web" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.2"/></linearGradient></defs>
+            <text x="150" y="120" font-size="80" font-weight="bold" fill="white" text-anchor="middle">🌐</text>
+          </svg>
+        </div>
+        <div class="case-study-content">
+          <span class="case-study-tag">Web Design</span>
+          <h4 class="case-study-name">E-Commerce Platform</h4>
+          <p class="case-study-desc">Complete redesign and rebuild of an e-commerce platform serving 500+ vendors across Uganda.</p>
+          <div class="case-study-results">
+            <span class="result-item">+150% Traffic</span>
+            <span class="result-item">3.2s Load Time</span>
+          </div>
+          <div class="case-study-cta">
+            <a href="#" class="btn-view">View Project</a>
+            <a href="#" class="btn-info">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 2 -->
+      <div class="glass-card case-study-card app reveal reveal-delay-1">
+        <div class="case-study-image">
+          <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="240" fill="url(%23grad-app)"/>
+            <defs><linearGradient id="grad-app" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.2"/></linearGradient></defs>
+            <text x="150" y="120" font-size="80" font-weight="bold" fill="white" text-anchor="middle">📱</text>
+          </svg>
+        </div>
+        <div class="case-study-content">
+          <span class="case-study-tag">Mobile App</span>
+          <h4 class="case-study-name">School Management App</h4>
+          <p class="case-study-desc">Mobile app for school administrators to manage students, staff, and academic records in real-time.</p>
+          <div class="case-study-results">
+            <span class="result-item">15+ Schools</span>
+            <span class="result-item">4.8★ Rating</span>
+          </div>
+          <div class="case-study-cta">
+            <a href="#" class="btn-view">View Project</a>
+            <a href="#" class="btn-info">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 3 -->
+      <div class="glass-card case-study-card design reveal reveal-delay-2">
+        <div class="case-study-image">
+          <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="240" fill="url(%23grad-design)"/>
+            <defs><linearGradient id="grad-design" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.2"/></linearGradient></defs>
+            <text x="150" y="120" font-size="80" font-weight="bold" fill="white" text-anchor="middle">🎨</text>
+          </svg>
+        </div>
+        <div class="case-study-content">
+          <span class="case-study-tag">UI/UX Design</span>
+          <h4 class="case-study-name">Banking Portal Redesign</h4>
+          <p class="case-study-desc">User research and complete UI/UX redesign for a major financial institution's web portal.</p>
+          <div class="case-study-results">
+            <span class="result-item">-40% Support Tickets</span>
+            <span class="result-item">+85% Satisfaction</span>
+          </div>
+          <div class="case-study-cta">
+            <a href="#" class="btn-view">View Project</a>
+            <a href="#" class="btn-info">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 4 -->
+      <div class="glass-card case-study-card web reveal reveal-delay-1">
+        <div class="case-study-image">
+          <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="240" fill="url(%23grad-web2)"/>
+            <defs><linearGradient id="grad-web2" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.2"/></linearGradient></defs>
+            <text x="150" y="120" font-size="80" font-weight="bold" fill="white" text-anchor="middle">💼</text>
+          </svg>
+        </div>
+        <div class="case-study-content">
+          <span class="case-study-tag">Web Development</span>
+          <h4 class="case-study-name">SaaS Dashboard</h4>
+          <p class="case-study-desc">Real-time analytics dashboard for a B2B SaaS platform used by 100+ companies.</p>
+          <div class="case-study-results">
+            <span class="result-item">60ms Load</span>
+            <span class="result-item">99.9% Uptime</span>
+          </div>
+          <div class="case-study-cta">
+            <a href="#" class="btn-view">View Project</a>
+            <a href="#" class="btn-info">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 5 -->
+      <div class="glass-card case-study-card app reveal reveal-delay-2">
+        <div class="case-study-image">
+          <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="240" fill="url(%23grad-app2)"/>
+            <defs><linearGradient id="grad-app2" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.2"/></linearGradient></defs>
+            <text x="150" y="120" font-size="80" font-weight="bold" fill="white" text-anchor="middle">🏗️</text>
+          </svg>
+        </div>
+        <div class="case-study-content">
+          <span class="case-study-tag">App Development</span>
+          <h4 class="case-study-name">Construction Management App</h4>
+          <p class="case-study-desc">Cross-platform app for project managers to track construction progress and resources.</p>
+          <div class="case-study-results">
+            <span class="result-item">200+ Users</span>
+            <span class="result-item">iOS + Android</span>
+          </div>
+          <div class="case-study-cta">
+            <a href="#" class="btn-view">View Project</a>
+            <a href="#" class="btn-info">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE STUDY 6 -->
+      <div class="glass-card case-study-card design reveal reveal-delay-3">
+        <div class="case-study-image">
+          <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="240" fill="url(%23grad-design2)"/>
+            <defs><linearGradient id="grad-design2" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.2"/></linearGradient></defs>
+            <text x="150" y="120" font-size="80" font-weight="bold" fill="white" text-anchor="middle">🏥</text>
+          </svg>
+        </div>
+        <div class="case-study-content">
+          <span class="case-study-tag">Healthcare IT</span>
+          <h4 class="case-study-name">Clinic Management System</h4>
+          <p class="case-study-desc">Integrated system for patient records, appointments, and billing for healthcare facilities.</p>
+          <div class="case-study-results">
+            <span class="result-item">30+ Clinics</span>
+            <span class="result-item">5000+ Patients</span>
+          </div>
+          <div class="case-study-cta">
+            <a href="#" class="btn-view">View Project</a>
+            <a href="#" class="btn-info">Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== TEAM ==================== -->
+<div style="display: none;" class="section" id="team-section-temp">
+  <section class="team-section page-section" style="padding-top: 8rem;">
+    <div class="section-header reveal">
+      <span class="section-tag">Our Team</span>
+      <h2 class="section-title">Meet the <span class="highlight">Experts</span></h2>
+      <p class="section-desc">Talented professionals dedicated to bringing your ideas to life.</p>
+    </div>
+
+    <div class="team-grid">
+      <div class="glass-card team-card reveal">
+        <svg width="140" height="140" viewBox="0 0 140 140" class="team-avatar" style="border-radius: 50%; margin: 0 auto; display: block;">
+          <circle cx="70" cy="70" r="70" fill="url(%23grad-team1)"/>
+          <defs><linearGradient id="grad-team1" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%230084d4"/><stop offset="100%" style="stop-color:%236c5ce7"/></linearGradient></defs>
+          <text x="70" y="80" font-size="60" text-anchor="middle" fill="white">👨‍💻</text>
+        </svg>
+        <h4 class="team-name">Ampeire Abraham</h4>
+        <p class="team-role">Lead Developer & Founder</p>
+        <p class="team-bio">Full-stack developer with 7+ years experience. Passionate about building scalable, user-friendly solutions.</p>
+        <div class="team-socials">
+          <a href="mailto:ampeiretech@gmail.com" title="Email">📧</a>
+          <a href="https://wa.me/256778212576" title="WhatsApp">💬</a>
+        </div>
+      </div>
+
+      <div class="glass-card team-card reveal reveal-delay-1">
+        <svg width="140" height="140" viewBox="0 0 140 140" class="team-avatar" style="border-radius: 50%; margin: 0 auto; display: block;">
+          <circle cx="70" cy="70" r="70" fill="url(%23grad-team2)"/>
+          <defs><linearGradient id="grad-team2" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%236c5ce7"/><stop offset="100%" style="stop-color:%23e74c3c"/></linearGradient></defs>
+          <text x="70" y="80" font-size="60" text-anchor="middle" fill="white">👩‍🎨</text>
+        </svg>
+        <h4 class="team-name">Grace Achieng</h4>
+        <p class="team-role">UI/UX Designer</p>
+        <p class="team-bio">Creative designer with expertise in user research and digital design systems. Makes interfaces intuitive.</p>
+        <div class="team-socials">
+          <a href="#" title="Portfolio">🔗</a>
+          <a href="#" title="Twitter">𝕏</a>
+        </div>
+      </div>
+
+      <div class="glass-card team-card reveal reveal-delay-2">
+        <svg width="140" height="140" viewBox="0 0 140 140" class="team-avatar" style="border-radius: 50%; margin: 0 auto; display: block;">
+          <circle cx="70" cy="70" r="70" fill="url(%23grad-team3)"/>
+          <defs><linearGradient id="grad-team3" x1="0" y1="0" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23f39c12"/><stop offset="100%" style="stop-color:%230084d4"/></linearGradient></defs>
+          <text x="70" y="80" font-size="60" text-anchor="middle" fill="white">👨‍💼</text>
+        </svg>
+        <h4 class="team-name">David Okoro</h4>
+        <p class="team-role">Project Manager</p>
+        <p class="team-bio">Ensures projects run smoothly from kickoff to launch. Expert communicator and organizer.</p>
+        <div class="team-socials">
+          <a href="#" title="LinkedIn">🔗</a>
+          <a href="#" title="Email">📧</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== PRODUCTS ==================== -->
+<div id="products-section" class="section">
+  <section style="min-height: auto; padding: 6rem 3rem; max-width: 1400px; margin: 0 auto;">
+    <div class="section-header reveal" style="margin-top: 3rem;">
+      <span class="section-tag">Software Solutions</span>
+      <h2 class="section-title">Our <span class="highlight">Products</span></h2>
+      <p class="section-desc">Powerful software systems designed for businesses across Uganda and East Africa.</p>
+    </div>
+
+    <div class="products-grid">
+      <!-- SCHOOL CLINIC SYSTEM -->
+      <div class="glass-card product-card cyan reveal">
+        <div class="product-icon">🏥</div>
+        <span class="product-tag">Healthcare IT</span>
+        <h3 class="product-name">School Clinic System</h3>
+        <p class="product-desc">Comprehensive health management system for schools. Track student records, clinic visits, and health reports.</p>
+        <ul class="product-features">
+          <li>Student health records</li>
+          <li>Clinic visit tracking</li>
+          <li>Medication management</li>
+          <li>Health analytics</li>
+          <li>Offline capability</li>
+        </ul>
+        <div class="product-actions">
+          <a href="#" class="btn-product primary" onclick="showSection('license'); return false;">Get License</a>
+          <a href="#" class="btn-product ghost" onclick="showSection('contact'); return false;">Learn More</a>
+        </div>
+      </div>
+
+      <!-- RETAIL ACCOUNTING SYSTEM -->
+      <div class="glass-card product-card purple reveal reveal-delay-1">
+        <div class="product-icon">🛒</div>
+        <span class="product-tag">Retail & Finance</span>
+        <h3 class="product-name">Retail Accounting System</h3>
+        <p class="product-desc">Complete accounting and inventory management for retail businesses. POS, stock control, and financial reports.</p>
+        <ul class="product-features">
+          <li>Point of Sale (POS)</li>
+          <li>Inventory management</li>
+          <li>Financial reports</li>
+          <li>Multi-branch support</li>
+          <li>URA compliance</li>
+        </ul>
+        <div class="product-actions">
+          <a href="#" class="btn-product primary" onclick="showSection('license'); return false;">Get License</a>
+          <a href="#" class="btn-product ghost" onclick="showSection('contact'); return false;">Learn More</a>
+        </div>
+      </div>
+
+      <!-- CUSTOM SOFTWARE -->
+      <div class="glass-card product-card" style="border: 1px solid var(--border-light); background: linear-gradient(135deg, rgba(243,156,18,0.05), rgba(231,76,60,0.05)); padding: 2.5rem; border-radius: 16px; reveal" class="reveal reveal-delay-2">
+        <div class="product-icon" style="background: rgba(243,156,18,0.15); border: 1px solid rgba(243,156,18,0.2);">⚙️</div>
+        <span class="product-tag" style="background: rgba(243,156,18,0.1); color: var(--accent-gold);">Custom Solutions</span>
+        <h3 class="product-name">Custom Software Development</h3>
+        <p class="product-desc">Bespoke software solutions tailored to your specific business needs and requirements.</p>
+        <ul class="product-features">
+          <li>Business analysis</li>
+          <li>Custom development</li>
+          <li>Integration services</li>
+          <li>Training & support</li>
+          <li>Ongoing maintenance</li>
+        </ul>
+        <div class="product-actions">
+          <a href="#" class="btn-product primary" onclick="showSection('contact'); return false;" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-3)); box-shadow: 0 0 30px rgba(243,156,18,0.2);">Schedule Consultation</a>
+          <a href="#" class="btn-product ghost" onclick="showSection('contact'); return false;">Learn More</a>
+        </div>
+      </div>
+    </div>
+     <div class="payment-methods">
+              <div class="payment-method">
+                <div class="payment-method-icon">📱</div>
+                <div class="payment-method-details">
+                  <h5>MTN Mobile Money</h5>
+                  <p style="font-size: 0.8rem;">Dial *165# or use MTN App</p>
+                  <div class="phone">+256 778 212 576</div>
+                </div>
+              </div>
+              <div class="payment-method">
+                <div class="payment-method-icon">📞</div>
+                <div class="payment-method-details">
+                  <h5>Airtel Money</h5>
+                  <p style="font-size: 0.8rem;">Dial *185# or use Airtel App</p>
+                  <div class="phone">+256 778 212 576</div>
+                </div>
+              </div>
+              <div class="payment-method">
+                <div class="payment-method-icon">💳</div>
+                <div class="payment-method-details">
+                  <h5>Bank Transfer</h5>
+                  <p style="font-size: 0.8rem;">Details provided after approval</p>
+                  <div class="phone">contact@ampeiretech.ug</div>
+                </div>
+              </div>
+            </div>
+  </section>
+</div>
+
+<!-- ==================== CONTACT ==================== -->
+<div id="contact-section" class="section">
+  <section style="min-height: auto; padding: 6rem 3rem; max-width: 1200px; margin: 0 auto;">
+    <div class="section-header reveal" style="margin-top: 3rem;">
+      <span class="section-tag">Get In Touch</span>
+      <h2 class="section-title">Let's Talk <span class="highlight">Together</span></h2>
+      <p class="section-desc">Have a question or ready to start your project? We'd love to hear from you.</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- INFO -->
+      <div class="contact-info">
+        <p style="color: var(--text-secondary); font-weight: 300; line-height: 1.8;" class="reveal">Reach out through any channel. We typically respond within 2-4 hours during business hours.</p>
+
+        <div class="glass-card contact-item reveal reveal-delay-1">
+          <div class="contact-item-icon icon-email">📧</div>
+          <div class="contact-item-body">
+            <div class="label">Primary Email</div>
+            <div class="value"><a href="mailto:ampeiretech@gmail.com">ampeiretech@gmail.com</a></div>
+          </div>
+        </div>
+
+        <div class="glass-card contact-item reveal reveal-delay-2">
+          <div class="contact-item-icon icon-email">📬</div>
+          <div class="contact-item-body">
+            <div class="label">Secondary Email</div>
+            <div class="value"><a href="mailto:ampeireabraham0@gmail.com">ampeireabraham0@gmail.com</a></div>
+          </div>
+        </div>
+
+        <div class="glass-card contact-item reveal reveal-delay-3">
+          <div class="contact-item-icon icon-wa">💬</div>
+          <div class="contact-item-body">
+            <div class="label">WhatsApp</div>
+            <div class="value"><a href="https://wa.me/256778212576">+256 778 212 576</a></div>
+          </div>
+        </div>
+
+        <div class="glass-card contact-item reveal reveal-delay-4">
+          <div class="contact-item-icon icon-phone">📍</div>
+          <div class="contact-item-body">
+            <div class="label">Location</div>
+            <div class="value">Kampala, Uganda</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="contact-form reveal reveal-delay-1">
+        <div id="contactFormWrap">
+          <h3 class="form-title">Send us a message</h3>
+          <p class="form-sub">Fill the form and we'll respond promptly.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name *</label>
+              <input type="text" id="cName" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" id="cEmail" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select id="cSubject">
+              <option value="">Select a subject...</option>
+              <option>Web Design Inquiry</option>
+              <option>App Development</option>
+              <option>Custom Software</option>
+              <option>Product Support</option>
+              <option>Partnership</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message *</label>
+            <textarea id="cMessage" placeholder="Tell us about your project..." required></textarea>
+          </div>
+          <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="submitContact()">Send Message →</button>
+        </div>
+        <div class="form-success" id="contactSuccess">
+          <div class="success-icon">✅</div>
+          <h4>Message Sent!</h4>
+          <p>Thank you. We'll get back to you soon.</p>
+          <button class="btn-ghost" style="margin-top: 1rem;" onclick="resetContact()">Send Another</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== LICENSE ==================== -->
+<div id="license-section" class="section">
+  <section style="min-height: auto; padding: 6rem 3rem; max-width: 900px; margin: 0 auto;">
+    <div class="section-header reveal" style="margin-top: 3rem;">
+      <span class="section-tag">Licensing</span>
+      <h2 class="section-title">Get a Software <span class="highlight">License</span></h2>
+      <p class="section-desc">Request a license for our software products. Quick approval process.</p>
+    </div>
+
+    <div class="license-badge-grid reveal">
+      <div class="license-badge">
+        <div class="icon">🔐</div>
+        <p>Secure Licensing</p>
+      </div>
+      <div class="license-badge">
+        <div class="icon">⚡</div>
+        <p>Fast Activation</p>
+      </div>
+      <div class="license-badge">
+        <div class="icon">🛡️</div>
+        <p>Full Support</p>
+      </div>
+    </div>
+
+    <div class="license-card reveal reveal-delay-1">
+      <div id="licenseFormWrap">
+        <h3 class="form-title">License Request Form</h3>
+        <p class="form-sub">All requests sent directly to ampeiretech@gmail.com</p>
+
+        <div class="form-group">
+          <label>Software Product *</label>
+          <select id="lSoftware" required>
+            <option value="">Select product...</option>
+            <option value="School Clinic System">🏥 School Clinic System</option>
+            <option value="Retail Accounting System">🛒 Retail Accounting System</option>
+            <option value="Custom Software">⚙️ Custom Software Solution</option>
+            <option value="input text">📦 type in your type</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="lName" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label>Company/Institution *</label>
+            <input type="text" id="lCompany" placeholder="School Name / Shop" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="lPhone" placeholder="+256 700 000 000" required>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="lEmail" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>License Type</label>
+          <select id="lType">
+            <option value="Single User">Single User</option>
+            <option value="Multi User (5)">Multi User (Up to 5)</option>
+            <option value="Enterprise">Enterprise (Unlimited)</option>
+            <option value="Not Sure">Not Sure – Need Guidance</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Additional Notes</label>
+          <textarea id="lNotes" placeholder="Any special requirements..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button class="btn-primary" style="flex: 1; justify-content: center; min-width: 200px;" onclick="submitLicense()">Submit Request →</button>
+          <a href="#" onclick="showSection('contact'); return false;" class="btn-ghost" style="padding: 1rem 1.5rem;">Questions?</a>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-muted); text-align: center;">We'll respond within 24 hours with pricing and next steps.</p>
+      </div>
+
+      <div class="form-success" id="licenseSuccess">
+        <div class="success-icon">🎉</div>
+        <h4>Request Received!</h4>
+        <p>Your license request has been sent to ampeiretech@gmail.com. We'll respond within 24 hours.</p>
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="https://wa.me/256778212576" class="btn-primary" target="_blank">Chat on WhatsApp</a>
+          <button class="btn-ghost" onclick="resetLicense()">Submit Another</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" onclick="showSection('home')" style="font-size: 1.4rem;">Ampeire<span>Tech</span></a>
+      <p>Professional software development, web design, and digital solutions for businesses across Uganda and East Africa.</p>
+      <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+        <a href="https://wa.me/256778212576" style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 1rem; text-decoration: none; transition: 0.3s;" title="WhatsApp">💬</a>
+        <a href="mailto:ampeiretech@gmail.com" style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0,0,0,0.05); border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 1rem; text-decoration: none; transition: 0.3s;" title="Email">📧</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#" onclick="showSection('home')">Web Development</a></li>
+        <li><a href="#" onclick="showSection('home')">App Development</a></li>
+        <li><a href="#" onclick="showSection('home')">UI/UX Design</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#" onclick="showSection('about')">About Us</a></li>
+        <li><a href="#" onclick="showSection('portfolio')">Portfolio</a></li>
+        <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Get in Touch</h5>
+      <ul>
+        <li><a href="mailto:ampeiretech@gmail.com">ampeiretech@gmail.com</a></li>
+        <li><a href="https://wa.me/256778212576">+256 778 212 576</a></li>
+        <li><a>Kampala, Uganda</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Ampeire Tech. All Rights Reserved.</span>
+    <span>Made with ❤️ in Uganda 🇺🇬</span>
+  </div>
+</footer>
+
+<script>
+  // ==================== CURSOR ====================
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .glass-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px';
+      cursor.style.height = '18px';
+      ring.style.width = '50px';
+      ring.style.height = '50px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '35px';
+      ring.style.height = '35px';
+    });
+  });
+
+  // ==================== PARALLAX ====================
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const bg = document.getElementById('parallaxBg');
+    if (bg) bg.style.transform = `translateY(${scrollY * 0.3}px)`;
+    const nav = document.getElementById('navbar');
+    nav.classList.toggle('scrolled', scrollY > 50);
+  });
+
+  // ==================== SECTION NAVIGATION ====================
+  function showSection(name) {
+    const pt = document.getElementById('pageTransition');
+    pt.classList.add('active');
+    setTimeout(() => {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(name + '-section');
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo(0, 0);
+      }
+      document.querySelectorAll('.nav-links a[id^="nav-"]').forEach(a => a.classList.remove('active-link'));
+      const navEl = document.getElementById('nav-' + name);
+      if (navEl) navEl.classList.add('active-link');
+      pt.classList.remove('active');
+      pt.classList.add('exit');
+      setTimeout(() => pt.classList.remove('exit'), 600);
+      setTimeout(initReveal, 300);
+      document.getElementById('navLinks').classList.remove('open');
+    }, 400);
+    return false;
+  }
+
+  // ==================== SCROLL REVEAL ====================
+  function initReveal() {
+    const reveals = document.querySelectorAll('.section.active .reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => {
+      if (!r.classList.contains('visible')) observer.observe(r);
+    });
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initReveal, 300);
+  });
+
+  // ==================== MOBILE MENU ====================
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // ==================== CONTACT FORM ====================
+  function submitContact() {
+    const name = document.getElementById('cName').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const subject = document.getElementById('cSubject').value;
+    const message = document.getElementById('cMessage').value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    const body = `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage:\n${message}`;
+    const mailtoUrl = `mailto:ampeiretech@gmail.com?subject=${encodeURIComponent('Website Contact: ' + (subject || 'General Inquiry'))}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+    document.getElementById('contactFormWrap').style.display = 'none';
+    document.getElementById('contactSuccess').style.display = 'block';
+  }
+  function resetContact() {
+    document.getElementById('contactFormWrap').style.display = 'block';
+    document.getElementById('contactSuccess').style.display = 'none';
+    document.getElementById('cName').value = '';
+    document.getElementById('cEmail').value = '';
+    document.getElementById('cSubject').value = '';
+    document.getElementById('cMessage').value = '';
+  }
+
+  // ==================== LICENSE FORM ====================
+  function submitLicense() {
+    const software = document.getElementById('lSoftware').value;
+    const name = document.getElementById('lName').value.trim();
+    const company = document.getElementById('lCompany').value.trim();
+    const phone = document.getElementById('lPhone').value.trim();
+    const email = document.getElementById('lEmail').value.trim();
+    const type = document.getElementById('lType').value;
+    const notes = document.getElementById('lNotes').value.trim();
+    if (!software || !name || !company || !email) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    const body = `LICENSE REQUEST\n${'='.repeat(50)}\n\nProduct: ${software}\nLicense Type: ${type}\n\nREQUESTOR INFO:\nName: ${name}\nCompany: ${company}\nPhone: ${phone}\nEmail: ${email}\n\nNOTES:\n${notes || 'None'}\n\n${'='.repeat(50)}\nFrom Website`;
+    const mailtoUrl = `mailto:ampeiretech@gmail.com?subject=${encodeURIComponent('LICENSE REQUEST: ' + software)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+    document.getElementById('licenseFormWrap').style.display = 'none';
+    document.getElementById('licenseSuccess').style.display = 'block';
+  }
+  function resetLicense() {
+    document.getElementById('licenseFormWrap').style.display = 'block';
+    document.getElementById('licenseSuccess').style.display = 'none';
+    document.getElementById('lSoftware').value = '';
+    document.getElementById('lName').value = '';
+    document.getElementById('lCompany').value = '';
+    document.getElementById('lPhone').value = '';
+    document.getElementById('lEmail').value = '';
+    document.getElementById('lNotes').value = '';
+  }
+
+  setTimeout(initReveal, 500);
+</script>
+</body>
+</html>
